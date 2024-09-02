@@ -4,12 +4,17 @@ import { Frame, DollarSign, PieChart, TrendingUp, Settings, Sun, Moon, Upload, L
 import Link from "next/link"
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
+import { Pie, Bar } from 'react-chartjs-2';
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+
+// Register ChartJS components
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
 export default function Home() {
   const router = useRouter();
@@ -27,6 +32,35 @@ export default function Home() {
       { description: 'Utilities', amount: -200.00 },
     ],
   })
+
+  // Add this data for the Expense Breakdown chart
+  const expenseBreakdownData = {
+    labels: ['Housing', 'Food', 'Transportation', 'Utilities', 'Entertainment'],
+    datasets: [
+      {
+        data: [1200, 500, 300, 200, 100],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.8)',
+          'rgba(54, 162, 235, 0.8)',
+          'rgba(255, 206, 86, 0.8)',
+          'rgba(75, 192, 192, 0.8)',
+          'rgba(153, 102, 255, 0.8)',
+        ],
+      },
+    ],
+  };
+
+  // Add this data for the Budget Progress chart
+  const budgetProgressData = {
+    labels: ['Spent', 'Remaining'],
+    datasets: [
+      {
+        label: 'Budget Progress',
+        data: [2300, 700],
+        backgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(75, 192, 192, 0.8)'],
+      },
+    ],
+  };
 
   useEffect(() => {
     // Simulate session check
@@ -235,9 +269,8 @@ export default function Home() {
               <CardDescription>Your top spending categories this month</CardDescription>
             </CardHeader>
             <CardContent>
-              {/* Placeholder for Chart.js or D3.js visualization */}
-              <div className="h-[200px] bg-muted rounded-md flex items-center justify-center">
-                Expense Breakdown Chart
+              <div className="h-[200px]">
+                <Pie data={expenseBreakdownData} options={{ maintainAspectRatio: false }} />
               </div>
             </CardContent>
           </Card>
@@ -247,9 +280,23 @@ export default function Home() {
               <CardDescription>Your budget progress for this month</CardDescription>
             </CardHeader>
             <CardContent>
-              {/* Placeholder for Chart.js or D3.js visualization */}
-              <div className="h-[200px] bg-muted rounded-md flex items-center justify-center">
-                Budget Progress Chart
+              <div className="h-[200px]">
+                <Bar 
+                  data={budgetProgressData} 
+                  options={{
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                      x: {
+                        stacked: true,
+                        max: 3000,
+                      },
+                      y: {
+                        stacked: true,
+                      },
+                    },
+                  }} 
+                />
               </div>
             </CardContent>
           </Card>
