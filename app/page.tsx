@@ -111,7 +111,15 @@ export default function Home() {
           <Link href="/savings" className="text-muted-foreground">Savings</Link>
           <Link href="/investments" className="text-muted-foreground">Investments</Link>
         </nav>
-        <div className="flex items-center w-full gap-4 md:ml-auto md:gap-2 lg:gap-4">
+        <div className="flex items-center ml-auto gap-2">
+          <Button variant="ghost" size="icon" onClick={toggleDarkMode}>
+            {isDarkMode ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+          <Button variant="ghost" size="icon" onClick={handleSignOut}>
+            <LogOut className="w-5 h-5" />
+            <span className="sr-only">Log out</span>
+          </Button>
           <Dialog>
             <DialogTrigger asChild>
               <Button variant="outline" size="icon">
@@ -162,14 +170,6 @@ export default function Home() {
               </div>
             </DialogContent>
           </Dialog>
-          <Button variant="ghost" size="icon" className="ml-auto" onClick={toggleDarkMode}>
-            {isDarkMode ? <Sun className="h-[1.2rem] w-[1.2rem]" /> : <Moon className="h-[1.2rem] w-[1.2rem]" />}
-            <span className="sr-only">Toggle theme</span>
-          </Button>
-          <Button variant="ghost" size="icon" onClick={handleSignOut}>
-            <LogOut className="w-5 h-5" />
-            <span className="sr-only">Log out</span>
-          </Button>
         </div>
       </header>
       <main className="flex-1 p-4 md:p-6 space-y-6">
