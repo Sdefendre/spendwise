@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ArrowUpRight, Upload } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -30,6 +30,7 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
 export default function ExpensesPage() {
   const [data, setData] = useState(initialData)
   const [pieData, setPieData] = useState(initialPieData)
+  const [isUploading, setIsUploading] = useState(false)
 
   const handleDataChange = (index, field, value) => {
     const newData = [...data]
@@ -43,14 +44,62 @@ export default function ExpensesPage() {
     setPieData(newPieData)
   }
 
+  const handleFileUpload = async (event) => {
+    const file = event.target.files[0];
+    if (file && file.type === 'application/pdf') {
+      setIsUploading(true)
+      const formData = new FormData()
+      formData.append('file', file)
+
+      try {
+        const response = await fetch('/api/upload-statement', {
+          method: 'POST',
+          body: formData,
+        })
+
+        if (response.ok) {
+          const newData = await response.json()
+          // Update all relevant state with the new data
+          setData(newData.monthlyData)
+          setPieData(newData.categoryData)
+          // Update other state as needed
+          alert('Statement uploaded and processed successfully!')
+        } else {
+          throw new Error('Failed to upload and process the statement')
+        }
+      } catch (error) {
+        console.error('Error uploading statement:', error)
+        alert('Failed to upload and process the statement. Please try again.')
+      } finally {
+        setIsUploading(false)
+      }
+    }
+  }
+
   return (
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Expenses</h1>
-        <Button variant="outline" className="flex items-center gap-2">
-          <Upload className="w-4 h-4" />
-          Upload Statement
+        <Button 
+          variant="outline" 
+          className="flex items-center gap-2" 
+          onClick={() => document.getElementById('statementUpload').click()}
+          disabled={isUploading}
+        >
+          {isUploading ? 'Uploading...' : (
+            <>
+              <Upload className="w-4 h-4" />
+              Upload Statement
+            </>
+          )}
         </Button>
+        <input
+          id="statementUpload"
+          type="file"
+          accept=".pdf"
+          className="hidden"
+          onChange={handleFileUpload}
+        />
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-6">
