@@ -6,8 +6,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useState } from "react"
+import { useRouter } from 'next/navigation'
 
 export default function ExpensesPage() {
+  const router = useRouter();
   const [expenses, setExpenses] = useState([
     { date: '2023-06-15', description: 'Grocery Shopping', category: 'Food & Dining', amount: 125.63 },
     { date: '2023-06-14', description: 'Gas Station', category: 'Transportation', amount: 45.00 },
@@ -49,7 +51,7 @@ export default function ExpensesPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-6">
-        <Card>
+        <Card onClick={() => router.push('/expenses/total')} className="cursor-pointer">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Expenses</CardTitle>
             <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
@@ -59,7 +61,7 @@ export default function ExpensesPage() {
             <p className="text-xs text-muted-foreground">-5% from last month</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card onClick={() => router.push('/expenses/food-and-dining')} className="cursor-pointer">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Food & Dining</CardTitle>
             <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
@@ -69,7 +71,7 @@ export default function ExpensesPage() {
             <p className="text-xs text-muted-foreground">+2% from last month</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card onClick={() => router.push('/expenses/transportation')} className="cursor-pointer">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Transportation</CardTitle>
             <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
@@ -79,7 +81,7 @@ export default function ExpensesPage() {
             <p className="text-xs text-muted-foreground">-3% from last month</p>
           </CardContent>
         </Card>
-        <Card>
+        <Card onClick={() => router.push('/expenses/entertainment')} className="cursor-pointer">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Entertainment</CardTitle>
             <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
@@ -87,6 +89,17 @@ export default function ExpensesPage() {
           <CardContent>
             <div className="text-2xl font-bold">$321.45</div>
             <p className="text-xs text-muted-foreground">+1% from last month</p>
+          </CardContent>
+        </Card>
+        
+        <Card onClick={() => router.push('/expenses/recent')} className="cursor-pointer">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Recent Expenses</CardTitle>
+            <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">${expenses.slice(0, 5).reduce((sum, expense) => sum + expense.amount, 0).toFixed(2)}</div>
+            <p className="text-xs text-muted-foreground">Last 5 transactions</p>
           </CardContent>
         </Card>
       </div>
