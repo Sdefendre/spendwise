@@ -16,10 +16,14 @@ import { Label } from "@/components/ui/label"
 // Register ChartJS components
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
+interface Session {
+  user: { name: string };
+}
+
 export default function Home() {
   const router = useRouter();
-  const [session, setSession] = useState(null)
-  const [status, setStatus] = useState("loading")
+  const [session, setSession] = useState<Session | null>(null)
+  const [status, setStatus] = useState<"loading" | "authenticated" | "unauthenticated">("loading")
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [pdfData, setPdfData] = useState({
     totalBalance: 5280.00,
@@ -103,8 +107,8 @@ export default function Home() {
     }
   }, [isDarkMode]);
 
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (file && file.type === 'application/pdf') {
       // Simulate PDF parsing
       setTimeout(() => {
@@ -123,14 +127,14 @@ export default function Home() {
     }
   }
 
-  const handleManualInput = (category, value) => {
+  const handleManualInput = (category: string, value: string) => {
     setPdfData(prevData => ({
       ...prevData,
       [category]: parseFloat(value)
     }))
   }
 
-  const handleTransactionEdit = (index, field, value) => {
+  const handleTransactionEdit = (index: number, field: 'description' | 'amount', value: string) => {
     setPdfData(prevData => ({
       ...prevData,
       recentTransactions: prevData.recentTransactions.map((transaction, i) => 
@@ -228,7 +232,7 @@ export default function Home() {
       <main className="flex-1 p-4 md:p-6 space-y-6">
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold">Financial Overview</h1>
-          <Button variant="outline" onClick={() => document.getElementById('pdfUpload').click()}>
+          <Button variant="outline" onClick={() => document.getElementById('pdfUpload')?.click()}>
             <Upload className="mr-2 h-4 w-4" /> Upload Statement
           </Button>
           <input
