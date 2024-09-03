@@ -53,4 +53,4 @@ We're committed to providing a welcoming and inclusive experience for everyone. 
 
 Have questions? Join our [community chat](https://discord.gg/spendwise) or reach out to us at contributors@spendwise.com.
 
-Thank you for considering contributing to SpendWise. Together, we can make personal finance management easier for everyone! 💖
+Thank you for considering contributing to SpendWise. Together we can make personal finance management easier for everyone! 💖
