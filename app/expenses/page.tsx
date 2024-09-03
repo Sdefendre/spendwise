@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { BackButton } from "@/components/BackButton";
 
 const initialData = [
   { month: 'Jan', expenses: 2400, income: 4000 },
@@ -78,6 +79,7 @@ export default function ExpensesPage() {
 
   return (
     <div className="container mx-auto p-6">
+      <BackButton />
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Expenses</h1>
         <Button 

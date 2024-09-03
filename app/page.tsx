@@ -22,8 +22,6 @@ interface Session {
 
 export default function Home() {
   const router = useRouter();
-  const [session, setSession] = useState<Session | null>(null)
-  const [status, setStatus] = useState<"loading" | "authenticated" | "unauthenticated">("loading")
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [pdfData, setPdfData] = useState({
     totalBalance: 5280.00,
@@ -64,30 +62,6 @@ export default function Home() {
         backgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(75, 192, 192, 0.8)'],
       },
     ],
-  };
-
-  useEffect(() => {
-    // Simulate session check
-    setTimeout(() => {
-      setSession({ user: { name: "Test User" } })
-      setStatus("authenticated")
-    }, 1000)
-  }, [])
-
-  const handleSignIn = () => {
-    setSession({ user: { name: "Test User" } })
-    setStatus("authenticated")
-  }
-
-  const handleSignOut = () => {
-    setSession(null)
-    setStatus("unauthenticated")
-  }
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(prev => !prev);
-    // Save the dark mode preference in local storage
-    localStorage.setItem('darkMode', JSON.stringify(!isDarkMode));
   };
 
   useEffect(() => {
@@ -143,17 +117,15 @@ export default function Home() {
     }))
   }
 
-  if (status === "loading") {
-    return <div>Loading...</div>
-  }
+  const toggleDarkMode = () => {
+    setIsDarkMode(prev => !prev);
+    // Save the dark mode preference in local storage
+    localStorage.setItem('darkMode', JSON.stringify(!isDarkMode));
+  };
 
-  if (!session) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <Button onClick={handleSignIn}>Sign in</Button>
-      </div>
-    )
-  }
+  const handleSignOut = () => {
+    router.push('/sign-out');
+  };
 
   return (
     <div className={`flex flex-col min-h-screen ${isDarkMode ? 'dark' : ''}`}>

@@ -9,17 +9,20 @@ SpendWise is a user-friendly web application that helps individuals manage their
 ## 🚀 Getting Started
 
 1. **Clone the repository:**
+
    ```
    git clone https://github.com/your-username/spendwise.git
    cd spendwise
    ```
 
 2. **Install dependencies:**
+
    ```
    npm install
    ```
 
 3. **Run the development server:**
+
    ```
    npm run dev
    ```
@@ -35,6 +38,7 @@ We welcome contributions of all kinds! Here are some ways you can help:
 3. **Submit pull requests:** Feel free to tackle any open issues or add new features.
 
 Before submitting a pull request, please make sure to:
+
 - Follow the existing code style
 - Write clear commit messages
 - Add tests for new features
