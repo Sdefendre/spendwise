@@ -220,7 +220,8 @@ export default function Home() {
             onChange={handleFileUpload}
           />
         </div>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+
+        <div className="grid gap-6 md:grid-cols-2">
           <Card onClick={() => router.push('/balance')}>
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
               <CardTitle className="text-sm font-medium">Total Balance</CardTitle>
@@ -262,6 +263,7 @@ export default function Home() {
             </CardContent>
           </Card>
         </div>
+
         <div className="grid gap-6 md:grid-cols-2">
           <Card>
             <CardHeader>
@@ -301,6 +303,7 @@ export default function Home() {
             </CardContent>
           </Card>
         </div>
+
         <Card>
           <CardHeader>
             <CardTitle>Recent Transactions</CardTitle>
