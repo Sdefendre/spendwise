@@ -20,7 +20,7 @@ interface Session {
   user: { name: string };
 }
 
-export default function Home() {
+export default function Dashboard() {
   const router = useRouter();
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [pdfData, setPdfData] = useState({
@@ -135,7 +135,7 @@ export default function Home() {
           <span>SpendWise</span>
         </Link>
         <nav className="hidden font-medium sm:flex flex-row items-center gap-5 text-sm lg:gap-6">
-          <Link href="/" className="font-bold">Dashboard</Link>
+          <Link href="/dashboard" className="font-bold">Dashboard</Link>
           <Link href="/expenses" className="text-muted-foreground">Expenses</Link>
           <Link href="/savings" className="text-muted-foreground">Savings</Link>
           <Link href="/investments" className="text-muted-foreground">Investments</Link>
