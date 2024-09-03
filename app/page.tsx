@@ -81,8 +81,27 @@ export default function Home() {
   }
 
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode)
-  }
+    setIsDarkMode(prev => !prev);
+    // Save the dark mode preference in local storage
+    localStorage.setItem('darkMode', JSON.stringify(!isDarkMode));
+  };
+
+  useEffect(() => {
+    // Check local storage for dark mode preference
+    const darkModePreference = localStorage.getItem('darkMode');
+    if (darkModePreference) {
+      setIsDarkMode(JSON.parse(darkModePreference));
+    }
+  }, []);
+
+  // Apply dark mode class to the body
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
