@@ -1,6 +1,6 @@
 "use client";
 
-import { Frame, DollarSign, PieChart, TrendingUp, Settings, Sun, Moon, Upload, LogOut, Menu, ArrowRight } from "lucide-react"
+import { Frame, DollarSign, PieChart, TrendingUp, Settings, Sun, Moon, Upload, LogOut, Menu, ArrowRight, FileText } from "lucide-react"
 import Link from "next/link"
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
@@ -74,7 +74,24 @@ export default function Dashboard() {
       {/* ... existing header and other content */}
 
       <main className="flex-1 p-4 md:p-6 space-y-6">
-        {/* ... other cards and content */}
+        <div className="flex justify-between items-center">
+          <h1 className="text-3xl font-bold">Financial Overview</h1>
+          <div className="space-x-2">
+            <Button variant="outline" onClick={() => document.getElementById('pdfUpload')?.click()}>
+              <Upload className="mr-2 h-4 w-4" /> Upload Statement
+            </Button>
+            <Button variant="outline" onClick={() => router.push('/uploads')}>
+              <FileText className="mr-2 h-4 w-4" /> View Uploads
+            </Button>
+          </div>
+          <input
+            id="pdfUpload"
+            type="file"
+            accept=".pdf"
+            className="hidden"
+            onChange={handleFileUpload}
+          />
+        </div>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
