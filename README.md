@@ -11,7 +11,7 @@ SpendWise is a user-friendly web application that helps individuals manage their
 1. **Clone the repository:**
 
    ```
-   git clone https://github.com/your-username/spendwise.git
+   git clone https://github.com/Sdefendre/spendwise.git
    cd spendwise
    ```
 
